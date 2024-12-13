@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:simple_dices/utiliys/utilit.dart';
 
 class Dice extends StatefulWidget {
   final Function(int cout)? rolled;
@@ -16,14 +17,6 @@ class DiceState extends State<Dice> {
   Random random = Random();
   int currentImageIndex = 0;
   int counter = 1;
-  List<String> images = [
-    'assets/images/dice_1.png',
-    'assets/images/dice_2.png',
-    'assets/images/dice_3.png',
-    'assets/images/dice_4.png',
-    'assets/images/dice_5.png',
-    'assets/images/dice_6.png',
-  ];
   late AudioPlayer player;
   @override
   void initState() {
@@ -34,10 +27,12 @@ class DiceState extends State<Dice> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2.5),
+            borderRadius: BorderRadius.circular(15)),
         child: Image.asset(
-          images[currentImageIndex],
+          Utilit.getImages()[currentImageIndex],
           height: 100,
         ),
       ),

@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   just_audio: ^0.9.42
   get: ^4.6.6
+  google_fonts: ^6.2.1
+  wakelock_plus: ^1.2.8
+  
   
 
 dev_dependencies:

@@ -4,15 +4,21 @@ PODS:
   - Flutter (1.0.0)
   - just_audio (0.0.1):
     - Flutter
+  - package_info_plus (0.4.5):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - wakelock_plus (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - Flutter (from `Flutter`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 EXTERNAL SOURCES:
   audio_session:
@@ -21,14 +27,20 @@ EXTERNAL SOURCES:
     :path: Flutter
   just_audio:
     :path: ".symlinks/plugins/just_audio/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  wakelock_plus:
+    :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
