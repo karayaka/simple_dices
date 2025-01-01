@@ -7,7 +7,8 @@ import 'package:simple_dices/utiliys/utilit.dart';
 
 class Dice extends StatefulWidget {
   final Function(int cout)? rolled;
-  const Dice({super.key, this.rolled});
+  final bool hasSound;
+  const Dice({super.key, this.hasSound = true, this.rolled});
 
   @override
   State<Dice> createState() => DiceState();
@@ -40,8 +41,11 @@ class DiceState extends State<Dice> {
   }
 
   rollIt() async {
-    await player.setAsset('assets/audios/rolling-dice.mp3');
-    player.play();
+    if (widget.hasSound) {
+      await player.setAsset('assets/audios/rolling-dice.mp3');
+      player.play();
+    }
+
     Timer.periodic(const Duration(milliseconds: 80), (timer) {
       counter++;
       setState(() {

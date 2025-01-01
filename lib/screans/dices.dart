@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:simple_dices/components/dice.dart';
+import 'package:simple_dices/utiliys/ad_helper.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class Dices extends StatefulWidget {
@@ -24,19 +26,39 @@ class Dices extends StatefulWidget {
 }
 
 class _DicesState extends State<Dices> {
+  BannerAd? bannerAd;
   @override
   void initState() {
     WakelockPlus.enable();
     super.initState();
+    BannerAd(
+            size: AdSize.banner,
+            adUnitId: AdHelper.diceBannerAdUnitId,
+            listener: BannerAdListener(
+              onAdLoaded: (ad) {
+                setState(() {
+                  bannerAd = ad as BannerAd;
+                });
+              },
+              onAdFailedToLoad: (ad, error) {
+                ad.dispose();
+              },
+            ),
+            request: const AdRequest())
+        .load();
   }
 
   @override
   void dispose() {
     WakelockPlus.disable();
+    if (bannerAd != null) {
+      bannerAd!.dispose();
+    }
     super.dispose();
   }
 
   var totalCount = 0.obs;
+  var hasSound = true.obs;
   @override
   Widget build(BuildContext context) {
     // Grid parametreleri
@@ -59,20 +81,43 @@ class _DicesState extends State<Dices> {
 
     return GestureDetector(
       onTap: () {
-        print("object");
         _rollIt();
       },
       child: Scaffold(
         appBar: AppBar(
           title: Obx(() => Text('${"total".tr}:${" "}$totalCount')),
-          bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(20.0),
+          actions: [
+            Obx(
+              () {
+                return IconButton(
+                    onPressed: () {
+                      hasSound.value = !hasSound.value;
+                    },
+                    icon: Icon(hasSound.value
+                        ? Icons.volume_off_outlined
+                        : Icons.volume_up_outlined));
+              },
+            )
+          ],
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(20.0),
               child: Text(
-                "Zar Atmak için Ekrana Dokun",
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                "touch_the_screen".tr,
+                style:
+                    const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
               )),
         ),
-        body: _buidDices(topPadding, itemWidth, itemHeight),
+        bottomNavigationBar: bannerAd != null
+            ? SizedBox(
+                height: bannerAd?.size.height.toDouble(),
+                width: bannerAd?.size.width.toDouble(),
+                child: AdWidget(
+                  ad: bannerAd!,
+                ),
+              )
+            : null,
+        body: Obx(() =>
+            _buidDices(hasSound.value, topPadding, itemWidth, itemHeight)),
       ),
     );
   }
@@ -87,13 +132,15 @@ class _DicesState extends State<Dices> {
     }
   }
 
-  Widget _buidDices(double topPadding, double itemWidth, double itemHeight) {
+  Widget _buidDices(
+      bool hasSound, double topPadding, double itemWidth, double itemHeight) {
     if (widget.diceCount == 1) {
       return Center(
         child: SizedBox(
             width: 150,
             height: 150,
             child: Dice(
+              hasSound: hasSound,
               key: widget.widgetKeys[0],
               rolled: (cout) {
                 totalCount.value += cout;
@@ -101,12 +148,12 @@ class _DicesState extends State<Dices> {
             )),
       );
     } else {
-      return _multipleDice(topPadding, itemWidth, itemHeight);
+      return _multipleDice(hasSound, topPadding, itemWidth, itemHeight);
     }
   }
 
   Padding _multipleDice(
-      double topPadding, double itemWidth, double itemHeight) {
+      bool hasSound, double topPadding, double itemWidth, double itemHeight) {
     return Padding(
       padding: EdgeInsets.only(top: (topPadding - 100)),
       child: GridView.builder(
@@ -119,6 +166,7 @@ class _DicesState extends State<Dices> {
         itemCount: widget.diceCount,
         itemBuilder: (context, index) {
           return Dice(
+            hasSound: hasSound,
             key: widget.widgetKeys[index],
             rolled: (count) {
               totalCount.value += count;
