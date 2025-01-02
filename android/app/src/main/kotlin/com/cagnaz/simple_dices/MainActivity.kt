@@ -1,4 +1,4 @@
-package com.example.simple_dices
+package com.cagnaz.simple_dices
 
 import io.flutter.embedding.android.FlutterActivity
 

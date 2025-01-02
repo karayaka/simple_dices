@@ -94,8 +94,8 @@ class _DicesState extends State<Dices> {
                       hasSound.value = !hasSound.value;
                     },
                     icon: Icon(hasSound.value
-                        ? Icons.volume_off_outlined
-                        : Icons.volume_up_outlined));
+                        ? Icons.volume_up_outlined
+                        : Icons.volume_off_outlined));
               },
             )
           ],
@@ -155,7 +155,7 @@ class _DicesState extends State<Dices> {
   Padding _multipleDice(
       bool hasSound, double topPadding, double itemWidth, double itemHeight) {
     return Padding(
-      padding: EdgeInsets.only(top: (topPadding - 100)),
+      padding: EdgeInsets.only(top: topPadding),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Her satırda 2 öğe
