@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:simple_dices/utiliys/utilit.dart';
 
 class Dice extends StatefulWidget {
@@ -18,7 +17,7 @@ class DiceState extends State<Dice> {
   Random random = Random();
   int currentImageIndex = 0;
   int counter = 1;
-  late AudioPlayer player;
+  late final AudioPlayer player;
   @override
   void initState() {
     player = AudioPlayer();
@@ -40,10 +39,13 @@ class DiceState extends State<Dice> {
     );
   }
 
-  rollIt() async {
+  Future<void> rollIt() async {
     if (widget.hasSound) {
-      await player.setAsset('assets/audios/rolling-dice.mp3');
-      player.play();
+      try {
+        player.play(AssetSource('audios/rolling-dice.mp3'));
+      } catch (e) {
+        debugPrint("Audio error: $e");
+      }
     }
 
     Timer.periodic(const Duration(milliseconds: 80), (timer) {

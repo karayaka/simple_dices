@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+2
+version: 1.0.0+7
 
 environment:
   sdk: ^3.5.4
@@ -35,11 +35,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  just_audio: ^0.9.42
-  get: ^4.6.6
-  google_fonts: ^6.2.1
-  wakelock_plus: ^1.2.8
-  google_mobile_ads: ^5.2.0
+  audioplayers: ^6.5.0
+  get: ^4.7.2
+  google_fonts: ^6.3.1
+  wakelock_plus: ^1.3.2
+  google_mobile_ads: ^6.0.0
   cagnaz_apps:
     git:
       url: https://github.com/karayaka/cagnaz_apps.git

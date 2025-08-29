@@ -80,8 +80,8 @@ class _DicesState extends State<Dices> {
     topPadding = topPadding > 0 ? topPadding : 0;
 
     return GestureDetector(
-      onTap: () {
-        _rollIt();
+      onTap: () async {
+        await _rollIt();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -122,13 +122,13 @@ class _DicesState extends State<Dices> {
     );
   }
 
-  _rollIt() async {
+  Future<void> _rollIt() async {
     totalCount.value = 0;
     for (var i = 0; i < widget.widgetKeys.length; i++) {
       if (i != 0) {
         await Future.delayed(const Duration(microseconds: 600));
       }
-      widget.widgetKeys[i].currentState!.rollIt();
+      await widget.widgetKeys[i].currentState!.rollIt();
     }
   }
 

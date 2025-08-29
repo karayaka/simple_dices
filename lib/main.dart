@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -6,9 +7,17 @@ import 'package:simple_dices/screans/home.dart';
 import 'package:simple_dices/utiliys/theme.dart';
 import 'package:simple_dices/utiliys/util.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  final defaultContext = AudioContext(
+      android: const AudioContextAndroid(
+    contentType: AndroidContentType.sonification,
+    usageType: AndroidUsageType.assistanceSonification,
+    audioFocus: AndroidAudioFocus.gainTransientMayDuck,
+  ));
+
+  await AudioPlayer.global.setAudioContext(defaultContext);
   runApp(const MyApp());
 }
 
